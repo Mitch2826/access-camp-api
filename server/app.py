@@ -2,10 +2,10 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 # Import the db object from database.py
-from server.database import db
+from database import db
 
 #import config
-from server import config
+import config
 #initialize the app
 app=Flask(__name__)
 #load config
@@ -17,7 +17,7 @@ db.init_app(app)
 migrate = Migrate(app, db)
 
 #register models
-from server.models import Camper, Activity, Signup
+from models import Camper, Activity, Signup
 
 #routes
 @app.route('/')
@@ -32,6 +32,7 @@ def get_campers():
     return jsonify(campers_list), 200
 
 #get single camper with signups
+@app.route('/campers/<int:id>', methods=['GET'])
 def get_camper(id):
     camper = Camper.query.get(id)
     
@@ -50,6 +51,8 @@ def get_camper(id):
                                      }
                      } for signup in camper.signups]
     }
+    
+    return jsonify(response), 200
 
 #create a new camper using POST
 @app.route('/campers', methods=['POST'])

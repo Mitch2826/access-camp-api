@@ -1,6 +1,6 @@
 from sqlalchemy.orm import validates
 
-from server.database import db
+from database import db
 
 #camper model
 class Camper(db.Model):
@@ -25,7 +25,7 @@ class Camper(db.Model):
     @validates('age')
     def validate_age(self, key, age):
         if not isinstance(age, int) or age < 8 or age > 18:
-            raise ValueError("Age must be an integer between 8 and 18")
+            raise ValueError("Age must be between 8 and 18")
         return age
     
     def __repr__(self):
@@ -54,7 +54,7 @@ class Activity(db.Model):
     @validates('difficulty')
     def validate_difficulty(self, key, difficulty):
         if not isinstance(difficulty, int) or difficulty < 1 or difficulty > 5:
-            raise ValueError("Difficulty must be an integer between 1 and 5")
+            raise ValueError("Difficulty must be a number between 1 and 5")
         return difficulty
     
     def __repr__(self):
@@ -76,7 +76,7 @@ class Signup(db.Model):
     @validates('time')
     def validate_time(self, key, time):
         if not isinstance(time, int) or time < 0 or time > 23:
-            raise ValueError("Time must be an integer between 0 and 23")
+            raise ValueError("Time must be between 0 and 23")
         return time
     
     def __repr__(self):
