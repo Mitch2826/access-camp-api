@@ -2,9 +2,10 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 # Import the db object from database.py
-from database import db
+from server.database import db
 
-import config
+#import config
+from server import config
 #initialize the app
 app=Flask(__name__)
 #load config
@@ -16,7 +17,7 @@ db.init_app(app)
 migrate = Migrate(app, db)
 
 #register models
-from models import Camper, Activity, Signup
+from server.models import Camper, Activity, Signup
 
 #routes
 @app.route('/')

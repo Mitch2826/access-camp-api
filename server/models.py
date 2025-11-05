@@ -1,6 +1,6 @@
 from sqlalchemy.orm import validates
 
-from database import db
+from server.database import db
 
 #camper model
 class Camper(db.Model):
